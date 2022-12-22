@@ -2,6 +2,6 @@
 build
 *.iml
 .factorypath
-./idea/
+.idea/
 build/
-
+*.pb
