@@ -1,0 +1,115 @@
+{
+  "type": "FolderSyncDefinition",
+  "name": "PCL",
+  "description": "",
+  "children": [
+    {
+      "type": "FolderSyncDefinition",
+      "name": "brokerage-srvc",
+      "description": "brokerage-srvc",
+      "children": [
+        {
+          "type": "SavedSearchWithScheduleSyncDefinition",
+          "name": "Search BOOKED order transitions (for alert)",
+          "search": {
+            "queryText": "_sourceCategory=prod/app/java and _sourceName=brokerage*\nAND \"INFO\"\n| json auto\n| where p=\"INFO\"\n| where \n (m matches (\"*Transitioning order with requestReference=*\") \nAND\n (m matches (\"*requestToken=*\")) AND (m matches (\"*to status=BOOKED*\"))\n)",
+            "defaultTimeRange": "Last 6 Hours",
+            "byReceiptTime": false,
+            "viewName": "",
+            "viewStartTime": "1970-01-01T00:00:00Z",
+            "queryParameters": [],
+            "parsingMode": "Manual"
+          },
+          "searchSchedule": {
+            "cronExpression": "0 0 17 ? * 1,2,3,4,5,6,7 *",
+            "displayableTimeRange": "-6h",
+            "parseableTimeRange": {
+              "type": "BeginBoundedTimeRange",
+              "from": {
+                "type": "RelativeTimeRangeBoundary",
+                "relativeTime": "-6h"
+              },
+              "to": null
+            },
+            "timeZone": "America/Argentina/Mendoza",
+            "threshold": {
+              "thresholdType": null,
+              "operator": "lt",
+              "count": 1
+            },
+            "notification": {
+              "taskType": "WebhookSearchNotificationSyncDefinition",
+              "webhookId": "0000000000019939",
+              "payload": null,
+              "itemizeAlerts": false,
+              "maxItemizedAlerts": 50
+            },
+            "scheduleType": "1Day",
+            "muteErrorEmails": false,
+            "parameters": []
+          },
+          "description": "Search brokerage orders transitions to BOOKED status (Response batch file processing).\nThis search should fire an opsgenie alert if doesn't find logs. More details in PLC-4632."
+        }
+      ]
+    },
+    {
+      "type": "FolderSyncDefinition",
+      "name": "card-dispute-srvc",
+      "description": "",
+      "children": [
+        {
+          "type": "SavedSearchWithScheduleSyncDefinition",
+          "name": "PCL - card-dispute-srvc errors",
+          "search": {
+            "queryText": "_sourcecategory=prod/app/java AND _sourceName=card-dispute-srvc\n| json auto\n| where p=\"ERROR\"\n| where !(\n  (stacktrace matches (\"*com.credify.core.exception.CfNotFoundException: CardDispute not found*\")) // PLC-7322\n  OR (stacktrace matches (\"*cannot be updated since one of its transactions support automated payment credit*\")) // PLC-7322\n  OR (m matches (\"Data fetcher failure: code=CARD_DISPUTE_TRANSACTION_ALREADY_INITIATED operationType=MUTATION operation=* type=Mutation field=*\")) // PLC-7322\n  OR (m matches (\"Data fetcher failure: code=CARD_DISPUTE_CANNOT_BE_UPDATED_BECAUSE_TRANSACTION_REFUND_ALREADY_INITIATED operationType=MUTATION operation=* type=Mutation field=*\")) // PLC-7322\n)",
+            "defaultTimeRange": "Last 3 Hours",
+            "byReceiptTime": false,
+            "viewName": "",
+            "viewStartTime": "1970-01-01T00:00:00Z",
+            "queryParameters": [],
+            "parsingMode": "Manual"
+          },
+          "searchSchedule": {
+            "cronExpression": "0 0/15 * * * ? *",
+            "displayableTimeRange": "-15m",
+            "parseableTimeRange": {
+              "type": "BeginBoundedTimeRange",
+              "from": {
+                "type": "RelativeTimeRangeBoundary",
+                "relativeTime": "-15m"
+              },
+              "to": null
+            },
+            "timeZone": "America/Toronto",
+            "threshold": {
+              "thresholdType": null,
+              "operator": "gt",
+              "count": 0
+            },
+            "notification": {
+              "taskType": "EmailSearchNotificationSyncDefinition",
+              "toList": [
+                "pcl-dev-support-aaaabqqabv4pc42wfrkhzvoh7u@mycredify.slack.com"
+              ],
+              "subjectTemplate": "{{NumRawResults}} {{SearchName}} at {{FireTime}}",
+              "includeQuery": false,
+              "includeResultSet": true,
+              "includeHistogram": true,
+              "includeCsvAttachment": false
+            },
+            "scheduleType": "15Minutes",
+            "muteErrorEmails": false,
+            "parameters": []
+          },
+          "description": ""
+        }
+      ]
+    },
+    {
+      "type": "FolderSyncDefinition",
+      "name": "rewards-srvc",
+      "description": "",
+      "children": []
+    }
+  ]
+}
