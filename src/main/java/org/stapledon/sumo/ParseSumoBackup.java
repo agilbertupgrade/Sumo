@@ -43,9 +43,9 @@ public class ParseSumoBackup {
         scheduledItem.forEach(item -> {
             log.info("{} - {}", item.getType(), item.getName());
             try {
-                destinationFile.printRecord(item.getName(), item.description, item.getFrequency(), item.getType(), item.getEmails());
+                destinationFile.printRecord(item.getName(), item.getDescription(), item.getFrequency(), item.getType(), item.getEmails());
             } catch (IOException e) {
-                throw new RuntimeException(e);
+                throw new InvalidOutputException(e);
             }
         });
     }

@@ -7,9 +7,9 @@ import lombok.Data;
 @Builder
 public class ScheduledItem {
 
-    public String name;
-    public String description;
-    public String type;
-    public String frequency;
-    public String emails;
+    private String name;
+    private String description;
+    private String type;
+    private String frequency;
+    private String emails;
 }

@@ -17,8 +17,8 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString(of = {"name", "description"})
 public class FolderSyncDefinition {
-    public String name;
-    public String description;
+    private String name;
+    private String description;
     @Builder.Default
-    public List<ChildrenItem> children = new ArrayList<>();
+    private List<ChildrenItem> children = new ArrayList<>();
 }

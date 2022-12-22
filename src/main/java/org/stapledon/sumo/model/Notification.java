@@ -1,6 +1,7 @@
 package org.stapledon.sumo.model;
 
 import java.util.List;
+
 import lombok.Data;
 
 @Data
