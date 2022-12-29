@@ -20,7 +20,7 @@ public class ParserConfig {
     @Bean
     public String pclBackupJson()  {
         try {
-            var jsonPath = new ClassPathResource("data/PCL.json").getFile();
+            var jsonPath = new ClassPathResource("data/PCL_2022-12-29.json").getFile();
             return FileUtils.readFileToString(jsonPath);
         } catch (IOException e) {
             throw new NoBackupException(e);

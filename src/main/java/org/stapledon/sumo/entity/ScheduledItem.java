@@ -12,4 +12,6 @@ public class ScheduledItem {
     private String type;
     private String frequency;
     private String emails;
+    private Boolean deduplicatedBySearchName;
+    private String alias;
 }
