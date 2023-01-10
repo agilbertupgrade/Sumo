@@ -1,13 +1,12 @@
 Name,Description,Frequency,Type,Emails
 Search BOOKED order transitions (for alert),"Search brokerage orders transitions to BOOKED status (Response batch file processing).
 This search should fire an opsgenie alert if doesn't find logs. More details in PLC-4632.","0 0 17 ? * 1,2,3,4,5,6,7 *",Webhook,
-PCL - card-dispute-srvc errors,,0 0/15 * * * ? *,Email,[pcl-dev-support-aaaabqqabv4pc42wfrkhzvoh7u@mycredify.slack.com]
+PCL - card-dispute-srvc errors,,0 0/15 * * * ? *,Webhook,
 PCL - card-funding-srvc serializing error,,17 * * * * ? *,Webhook,
+PCL JIT timeouts - P1,Observed more than 10 timeouts in 24h,0 0/15 * * * ? *,Webhook,
 PCL card-funding-srvc Error performing JIT,Error executing JIT request,17 * * * * ? *,Webhook,
-PCL card-funding-srvc errors,,17 * * * * ? *,Email,"[broger@upgrade.com, gmonasterios@upgrade.com, o8e4e1i5u4v3u4h6@mycredify.slack.com]"
-prod card-srvc/card-funding-srvc Jit Missmatch,,0 0 * * * ? *,Email,"[broger@upgrade.com, gmonasterios@upgrade.com]"
-Alert - Production - PCL - Clearing not processed,,0 0/15 * * * ? *,Email,"[card-clearing-alerts-aaaadokmvlvieheo6ua5utwq6u@mycredify.slack.com, abhandare@upgrade.com, dozhang@upgrade.com]"
-Card-Errors,,0 0/15 * * * ? *,Email,"[abhandare@upgrade.com, hkuan@upgrade.com, o8e4e1i5u4v3u4h6@mycredify.slack.com]"
+PCL card-funding-srvc errors,,17 * * * * ? *,Webhook,
+Card-Errors,,0 0/15 * * * ? *,Webhook,
 JIT approved by Upgrade and declined by Marqeta (threshold),Capture cases when Upgrade has approved the JIT but we received in the notification it has been declined (most probably by marqeta or visa). Possible action contact Marqeta to have visibility.,17 * * * * ? *,Webhook,
 Marqeta 401 Error Count last 15 min,,0 0/15 * * * ? *,Webhook,
 PCL - Possible marqeta outage,Marqeta is sending notification over non registered JIT (threshold). Possibly marqeta is declining transactions and sending notifications. Also could require to be adjusted. Today we have 750K masterlines and over 6K daily notifications without JIt,17 * * * * ? *,Webhook,
@@ -17,33 +16,33 @@ card-srvc - Declined JIT webhooks (night traffic),This alert gets triggered when
 card-srvc - No JIT webhooks (day traffic),This alert gets triggered when the number of JIT webhooks is under the min expected threshold (1000 every hour). You can check JIT webhook statistics dashboard on Sumo Logic to get more info about the context (specially Number of JIT webhooks chart),0 0 7-20 ? * *,Webhook,
 card-srvc - No JIT webhooks (night traffic),This alert gets triggered when JIT webhooks are under the min expected threshold (400 every hour). You can check JIT webhook statistics dashboard on Sumo Logic to get more info about the context (specially Number of JIT webhooks chart),"0 0 0,1,2,3,4,5,6,7,20,21,22,23 ? * * *",Webhook,
 card-srvc - Timedout JIT webhooks,This alert gets triggered when timed-out JIT notifications rate exceeds the max expected thresholds (5%). You can check JIT webhook statistics dashboard (specially Timedout JIT webhooks rate chart),17 * * * * ? *,Webhook,
-CLADS idempotency dryMode mismatch detected,"This search detects if CLADS detected a case where CPS data didn't change, but CDS response did",0 0 0/2 * * ? *,Email,[gmonasterios@upgrade.com]
-PCL CLADS errors,,0 0/15 * * * ? *,Email,"[mceban@upgrade.com, pcl-dev-support-aaaabqqabv4pc42wfrkhzvoh7u@mycredify.slack.com]"
+PCL CLADS errors,,0 0/15 * * * ? *,Webhook,
 PCL - Multi APR - Import Job - Send Email Task aborted,"Task to send 45 prior days notification to the borrower was aborted. Please, generate a DAT to update the task status so that the task framework can retry",0 0 * * * ? *,Webhook,
 PCL - Multi APR - Import Job - invalid record in file,Invalid record to be imported to file_batch_process table,17 * * * * ? *,Webhook,
 PCL - Multi APR - Import Job - review process creation failed,Errors which avoid the review process creation,17 * * * * ? *,Webhook,
 PCL - Multi APR - Update Job - CLSS sent BAD REQUEST,"Sent APR Update request got a BAD REQUEST from CLSS. Keep in mind the borrower could be notified about the change. Note that this search used to contain ML Status issue, but that has been moved to Product alerts list",17 * * * * ? *,Webhook,
 PCL - Multi APR - Update Job - Multiple requests failed for the same ML,Multiple errors found for the same ML trying to update its APR,0 0 * * * ? *,Webhook,
-PCL creditline-review-srvc errors,,0 0/15 * * * ? *,Email,[pcl-dev-support-aaaabqqabv4pc42wfrkhzvoh7u@mycredify.slack.com]
+PCL creditline-review-srvc errors,,0 0/15 * * * ? *,Webhook,
 Draw Onboarding Retry Limit  Warning,Draw Onboarding Retry Limit  Warning,17 * * * * ? *,Webhook,
 PCL - CLSS - cycling task errors,Alert that catches cycling failures. These are pretty time sensitive,"0 0 12 ? * 1,2,3,4,5,6,7 *",Webhook,
-PCL - CLSS Spectrum Auth alert,Sent to #pcl-dev-support,0 0/15 * * * ? *,Email,[o8e4e1i5u4v3u4h6@mycredify.slack.com]
+PCL - CLSS Spectrum Auth alert,Sent to #pcl-dev-support,0 0/15 * * * ? *,Webhook,
 PCL - CLSS creditlineCyclingTask for yesterday,Check for start of creditlineCyclingTask for yesterday. Fire an alert if no result found.,"0 0 6 ? * 1,2,3,4,5,6,7 *",Webhook,
 PCL - EarlyPay accounts cycling errors - requires cycle fix ASAP,Cycles need to be fixed and closed before EarlyPay jobs get impacted and customer gets negative evaluation and lose grace period,0 0 0/3 * * ? *,Webhook,
 PCL - EarlyPay jobs failures  - requires research and fix ASAP,"Errors on EarlyPay jobs, requires research and fix ASAP",0 0 11 * * ? *,Webhook,
 PCL - ML Onboarding Still Failed After 48 Retries,ML CLSS onboarding not succeeded after 2 days retries,0 0 * * * ? *,Webhook,
 PCL - Payment Reminder command exhausted,It will be triggered as soon as the command exhausted the retries.,17 * * * * ? *,Webhook,
 PCL - Statement Generation,Statement generation aborted for one or many commands,17 * * * * ? *,Webhook,
-PCL-Errors,Sent to #pcl-dev-support,0 0/15 * * * ? *,Email,"[abhandare@upgrade.com, hkuan@upgrade.com, sparte@upgrade.com, frodriguez@upgrade.com, o8e4e1i5u4v3u4h6@mycredify.slack.com, mmandhale@upgrade.com]"
+PCL-Errors,Sent to #pcl-dev-support,0 0/15 * * * ? *,Webhook,
 Schedule EarlyAutoPayment retries exhausted,Search ScheduleEarlyAutoPaymentCommand errors. More details in PLC-5251.,"0 0 10 ? * 1,2,3,4,5,6,7 *",Webhook,
-Alert - Production - Customer Performance Service Errors,,0 0/15 * * * ? *,Email,"[abhandare@upgrade.com, hkuan@upgrade.com, o8e4e1i5u4v3u4h6@mycredify.slack.com, mmandhale@upgrade.com]"
+Alert - Production - Customer Performance Service Errors,,0 0/15 * * * ? *,Webhook,
 ERROR - Issuance Error: PCL Direct Pay,,17 * * * * ? *,Webhook,
 ERROR - PCL Batch in Disbursement,,17 * * * * ? *,Webhook,
 ERROR - PCL Disbursement CONSUME_RETRIES_EXHAUSTED,Alerts if there is a draw related consume retries exhausted in Disbursement Service,17 * * * * ? *,Webhook,
+executeLineOpening error,Error executing PCL opening in disbursement-srvc,0 0 * * * ? *,Webhook,
 PCL - Dosh Notification - ext-webhook-gateway-srvc validation error,Dosh Notification validation,17 * * * * ? *,Webhook,
 PCL - dosh-rewards-srvc DoshApiClient alert,Dosh API error rate OpsGenie alert,17 * * * * ? *,Webhook,
 PCL - dosh-rewards-srvc Task alert,Notify when there is a task failure for dosh-rewards-srvc,0 0/15 * * * ? *,Webhook,
 "Alert - Rewards, Brokerage and Ledger - General Errors",,0 0/15 * * * ? *,Email,"[hkuan@upgrade.com, abhandare@upgrade.com, tswift@upgrade.com, rewards-dev-support-aaaacujns6p3mcsfqiewy7j7u4@mycredify.slack.com]"
-PCL-Failed event consumptions v2 alert (prod),Prod alert for failed event consumption from services owned by PCL team,0 0/15 * * * ? *,Email,"[abhandare@upgrade.com, hkuan@upgrade.com, sparte@upgrade.com, abelisleturcot@upgrade.com, frodriguez@upgrade.com, o8e4e1i5u4v3u4h6@mycredify.slack.com]"
-PCL-Failed event publications v2 alert (prod),Failed event publications for services owned by PCL team,0 0/15 * * * ? *,Email,[o8e4e1i5u4v3u4h6@mycredify.slack.com]
+PCL-Failed event consumptions v2 alert (prod),Prod alert for failed event consumption from services owned by PCL team,0 0/15 * * * ? *,Webhook,
+PCL-Failed event publications v2 alert (prod),Failed event publications for services owned by PCL team,0 0/15 * * * ? *,Webhook,
 PROD-PCL-Task Execution ABORTED,All ABORTED tasks execution for PCL team,0 0/15 * * * ? *,Webhook,

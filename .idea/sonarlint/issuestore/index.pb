@@ -1,12 +1,8 @@
 
 <
 build.gradle,f/0/f07866736216be0ee2aba49e392191aeae700a35
-=
-schedules.csv,1/2/12bae258153d983627665a7522f5611961a693e7
 p
 @src/main/java/org/stapledon/sumo/model/FolderSyncDefinition.java,f/7/f78db25fe96be7bc4277db52f9c95ca9be66d36b
-f
-6src/main/java/org/stapledon/sumo/model/PanelsItem.java,1/7/1731a9e2ddcb8be07eba0fa1c7049e1f6f08b71e
 g
 7src/main/java/org/stapledon/sumo/model/QueriesItem.java,6/5/65cd618d278d1c7fabbb337bef82a257743f9d0b
 V
@@ -31,8 +27,6 @@ Y
 )src/main/resources/application.properties,0/6/06f65155ec73600b9fc5c4dc2883d4bb84d8e284
 j
 :src/main/java/org/stapledon/sumo/SumoParseApplication.java,1/f/1fd2785379ab1299c2bc98b9f1f34dbd7b024f74
-j
-:src/main/java/org/stapledon/sumo/entity/ScheduledItem.java,e/7/e710af750415bffe5ea1e4951f316056ee2fc913
 b
 2src/main/java/org/stapledon/sumo/model/Layout.java,7/4/74aa003455c0d5cb7568b82bc2e76762dcf21a1a
 h
@@ -45,10 +39,6 @@ j
 :src/main/java/org/stapledon/sumo/model/SearchSchedule.java,a/c/ac0021f8f537b2c6114f49b297c585247d6efca0
 s
 Csrc/test/java/org/stapledon/sumo/SumoExtractorApplicationTests.java,f/a/fa0642414ef1b141ad9d18b2061c0429f53400bd
-b
-2src/main/java/org/stapledon/sumo/ParserConfig.java,0/a/0a2cbe8460926e62d2cd6c96bd929e4ff7e5481d
-e
-5src/main/java/org/stapledon/sumo/ParseSumoBackup.java,a/b/abc95cf5d09f9230335ce1a6ae8998808f93b4ac
 P
  src/main/resources/data/PCL.json,0/a/0acd8ecd7c7656fae53f6a85c9a9b944705b3fc5
 l

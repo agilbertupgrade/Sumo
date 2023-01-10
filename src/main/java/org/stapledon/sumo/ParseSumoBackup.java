@@ -78,16 +78,21 @@ public class ParseSumoBackup {
         if (item.getSearchSchedule() != null) {
             var notification = item.getSearchSchedule().getNotification();
             if (notification.getTaskType().equals("WebhookSearchNotificationSyncDefinition")) {
-                var payload = gson.fromJson(notification.getPayload().toString(), WebhookPayload.class);
-                items.add(ScheduledItem
-                        .builder()
-                        .name(item.getName())
-                        .description(item.getDescription())
-                        .type("Webhook")
-                        .frequency(item.getSearchSchedule().getCronExpression())
-                        .deduplicatedBySearchName(Strings.isNotBlank(payload.getAlias()) && payload.getAlias().equals("{{SearchName}}"))
-                        .alias(payload.getAlias())
-                        .build());
+                var payloadJson = notification.getPayload();
+                if (payloadJson == null) {
+                    log.warn("Webhook specified, but no payload details: {}", item.getName());
+                } else {
+                    var payload = gson.fromJson(payloadJson.toString(), WebhookPayload.class);
+                    items.add(ScheduledItem
+                            .builder()
+                            .name(item.getName())
+                            .description(item.getDescription())
+                            .type("Webhook")
+                            .frequency(item.getSearchSchedule().getCronExpression())
+                            .deduplicatedBySearchName(Strings.isNotBlank(payload.getAlias()) && payload.getAlias().equals("{{SearchName}}"))
+                            .alias(payload.getAlias())
+                            .build());
+                }
             } else {
                 log.warn("Email - {}", item.getName());
                 items.add(ScheduledItem
